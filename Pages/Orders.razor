@@ -1,18 +1,6 @@
 ﻿@page "/orders"
 @inject HttpClient Http
 
-@* 
-<TelerikGrid Data="@GridData"
-             Pageable="true"
-             Sortable="true"
-             FilterMode="@GridFilterMode.FilterRow">
-    <GridColumns>
-        <GridColumn Field="Name" Title="Product Name" />
-        <GridColumn Field="Price" DisplayFormat="{0:C2}" />
-        <GridColumn Field="@nameof(Product.Released)" DisplayFormat="{0:D}" />
-        <GridColumn Field="@nameof(Product.Discontinued)" />
-    </GridColumns>
-</TelerikGrid> *@
 
 
 
@@ -23,48 +11,28 @@
     <GridColumns>
         <GridColumn Field="Name" Title="Name" />
         <GridColumn Field="Quantity" DisplayFormat="{0:C2}" />
-        @* <GridColumn Field="@nameof(Product.Released)" DisplayFormat="{0:D}" />
-        <GridColumn Field="@nameof(Product.Discontinued)" /> *@
+        <GridColumn Field="Email" Title="Email" />
+
+        <GridColumn Field="Phone" Title="Phone" />
+
+        <GridColumn Field="OrderNumber" Title="Order Number" />
+
     </GridColumns>
 </TelerikGrid>
 
 
 @code {
-    private List<Product> GridData { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        GridData = new List<Product>();
-
-        // var rnd = new Random();
-
-        // for (int i = 1; i <= 30; i++)
-        // {
-        //     GridData.Add(new Product
-        //         {
-        //             Id = i,
-        //             Name = "Product name " + i,
-        //             Price = (decimal)(rnd.Next(1, 50) * 3.14),
-        //             Released = DateTime.Now.AddDays(-rnd.Next(1, 365)).AddYears(-rnd.Next(1, 10)).Date,
-        //             Discontinued = i % 5 == 0
-        //         });
-
-        // }
-
+     
 
         orders = await Http.GetFromJsonAsync<IEnumerable<Order>>("sample-data/neworders.json");
 
 
     }
 
-    public class Product
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public decimal Price { get; set; }
-        public DateTime Released { get; set; }
-        public bool Discontinued { get; set; }
-    }
+   
 
 
     private IEnumerable<Order> orders;
